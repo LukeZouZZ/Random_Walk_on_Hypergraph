@@ -38,13 +38,6 @@ python -c "from rdkit import Chem; print('RDKit OK')"
 python -c "from src import HypergraphBuilder; print('Project OK')"
 ```
 
-### Download Dataset
-
-```bash
-mkdir -p datasets
-wget -O datasets/molecules.csv https://raw.githubusercontent.com/onecoinbuybus/Database_chemoinformatics/master/platinum_dataset.csv
-```
-
 ## Quick Start
 
 ### Basic Usage

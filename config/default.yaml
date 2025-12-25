@@ -1,0 +1,52 @@
+# Default configuration for Hypergraph-MCMC molecular screening
+
+# Fingerprint extraction settings
+fingerprint:
+  type: morgan           # morgan, rdkit, or maccs
+  radius: 2              # For Morgan fingerprints (ECFP4 = radius 2)
+  use_features: false    # Use feature-based fingerprints (FCFP)
+  n_bits: null           # null for unhashed, integer for hashed
+
+# Hypergraph construction settings
+hypergraph:
+  weighting: tfidf       # none, frequency, tfidf, or bm25
+  min_hyperedge_size: 2  # Minimum molecules per hyperedge
+  max_hyperedge_size: null  # Maximum molecules per hyperedge (null = no limit)
+  normalize: true        # Normalize transition probabilities
+
+# MCMC sampler settings
+sampler:
+  algorithm: metropolis_hastings  # metropolis_hastings or simulated_annealing
+  n_steps: 200                    # Number of MCMC steps
+  n_chains: 1                     # Number of parallel chains
+  burn_in: 10                     # Burn-in period
+  
+  # Temperature settings
+  initial_temp: 1.0               # Starting temperature
+  final_temp: 0.01                # Final temperature
+  cooling_schedule: exponential   # exponential, linear, logarithmic, or adaptive
+  cooling_rate: 0.99              # For exponential cooling
+  
+  # Acceptance settings
+  use_log_prob: true              # Use log probabilities for numerical stability
+  symmetric_proposal: false       # If true, skip proposal ratio in MH
+
+# Similarity computation settings
+similarity:
+  metric: tanimoto       # tanimoto, dice, cosine, or tversky
+  cache_size: 10000      # LRU cache size for lazy computation
+  precompute: false      # Precompute all similarities (memory intensive)
+  
+  # Tversky parameters (if metric = tversky)
+  tversky_alpha: 0.5
+  tversky_beta: 0.5
+
+# Output settings
+output:
+  top_k: 10                  # Number of top results to return
+  save_trajectory: false     # Save full MCMC trajectory
+  save_acceptance_rate: true # Track acceptance rate over time
+  verbose: true              # Print progress information
+
+# Random seed for reproducibility
+seed: null  # null for random, integer for fixed seed
